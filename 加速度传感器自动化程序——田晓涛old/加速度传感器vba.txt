@@ -1,0 +1,77 @@
+Sub handlerReport()
+    Dim count As Integer
+    Dim col As String
+    Dim cuRange As String
+    Sheets("%S").Select
+    '幅频响应
+    count = Sheets("测量点数").Range("B2")
+    If count <= 6 Then
+        Rows("16:27").Hidden = True
+        col = CNtoW(count + 2)
+        cuRange = col & (10) & ":H" & (15)
+        Range(cuRange).ClearContents
+    ElseIf count <= 12 Then
+        Rows("22:27").Hidden = True
+        col = CNtoW(count - 6 + 2)
+        cuRange = col & (16) & ":H" & (21)
+        Range(cuRange).ClearContents
+    ElseIf count <= 16 Then
+        col = CNtoW(count - 12 + 2)
+        cuRange = col & (22) & ":H" & (27)
+        Range(cuRange).ClearContents
+    Else
+    End If
+    Call hideAmpborder(count, cuRange)
+    '幅值线性度
+    count = Sheets("测量点数").Range("B3")
+    If count <= 5 Then
+        Rows("35:40").Hidden = True
+        col = CNtoW(count + 2)
+        cuRange = col & (29) & ":H" & (34)
+        Range(cuRange).ClearContents
+    ElseIf count <= 10 Then
+        col = CNtoW(count - 5 + 2)
+        cuRange = col & (35) & ":H" & (40)
+        Range(cuRange).ClearContents
+    Else
+    End If
+    Call hideLineborder(count, cuRange)
+End Sub
+'列数转字母
+Function CNtoW(ByVal num As Long) As String
+    CNtoW = Replace(Cells(1, num).Address(False, False), "1", "")
+End Function
+'隐藏边框(幅频响应)
+Function hideAmpborder(ByVal hideCount As Integer, ByVal hideRange As String)
+    If hideCount <= 6 Then
+        Range(hideRange).Select
+        Selection.Borders(xlEdgeTop).LineStyle = xlNone
+        Selection.Borders(xlEdgeBottom).LineStyle = xlNone
+        Selection.Borders(xlEdgeRight).LineStyle = xlNone
+        Selection.Borders(xlInsideVertical).LineStyle = xlNone
+        Selection.Borders(xlInsideHorizontal).LineStyle = xlNone
+    ElseIf hideCount <= 16 Then
+        Range(hideRange).Select
+        Selection.Borders(xlEdgeBottom).LineStyle = xlNone
+        Selection.Borders(xlEdgeRight).LineStyle = xlNone
+        Selection.Borders(xlInsideVertical).LineStyle = xlNone
+        Selection.Borders(xlInsideHorizontal).LineStyle = xlNone
+    End If
+End Function
+'隐藏边框(幅值线性度)
+Function hideLineborder(ByVal hideCount As Integer, ByVal hideRange As String)
+    If hideCount <= 5 Then
+        Range(hideRange).Select
+        Selection.Borders(xlEdgeTop).LineStyle = xlNone
+        Selection.Borders(xlEdgeBottom).LineStyle = xlNone
+        Selection.Borders(xlEdgeRight).LineStyle = xlNone
+        Selection.Borders(xlInsideVertical).LineStyle = xlNone
+        Selection.Borders(xlInsideHorizontal).LineStyle = xlNone
+    ElseIf hideCount <= 10 Then
+        Range(hideRange).Select
+        Selection.Borders(xlEdgeBottom).LineStyle = xlNone
+        Selection.Borders(xlEdgeRight).LineStyle = xlNone
+        Selection.Borders(xlInsideVertical).LineStyle = xlNone
+        Selection.Borders(xlInsideHorizontal).LineStyle = xlNone
+    End If
+End Function
