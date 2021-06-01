@@ -36,6 +36,7 @@ Sub handlerReport()
     Else
     End If
     Call hideLineborder(count, cuRange)
+    Call copyAndRemane("%S", "%d")
 End Sub
 '列数转字母
 Function CNtoW(ByVal num As Long) As String
@@ -73,5 +74,15 @@ Function hideLineborder(ByVal hideCount As Integer, ByVal hideRange As String)
         Selection.Borders(xlEdgeRight).LineStyle = xlNone
         Selection.Borders(xlInsideVertical).LineStyle = xlNone
         Selection.Borders(xlInsideHorizontal).LineStyle = xlNone
+    End If
+End Function
+'根据方向和通道数更新excel 2021/5/31
+Function copyAndRemane(ByVal direction As String, ByVal Channelno As Integer)
+    If Channelno = 2 Then
+        Sheets(direction).Copy after:=Sheets(direction)
+    ElseIf Channelno = 3 Then
+        Sheets(direction).Copy after:=Sheets(direction)
+        Sheets(direction).Copy after:=Sheets(direction)
+    Else
     End If
 End Function

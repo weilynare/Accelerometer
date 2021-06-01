@@ -1,1 +1,2 @@
 1、测量点数改变时要按下enter键让excel识别
+2、生成exe后，将根目录下data文件夹的config.cfg复制到exe中的data文件夹下
